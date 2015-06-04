@@ -1,17 +1,20 @@
+#include <iostream>
+#include <string>
 #include "template.h"
 //#include <QApplication>
 //#include <QDebug>
 //#include <QColor>
 #include <math.h>
-#define widthsize 180
-#define heigthtsize 320
-#define M_PI 3.1415926
+using namespace std;
 int HueTemplate::region1Arcs[8] = {18, 94, 18, 18, 180, 94, 94, 0};
 int HueTemplate::region2Arcs[8] = { 0,  0, 80, 18,   0, 18, 94, 0};
 int HueTemplate::region2Shift[8] = {0, 0, 270, 180, 0, 180, 180, 0};
 char HueTemplate::names[8] = {'i', 'V', 'L', 'I', 'T', 'Y', 'X', 'N'};
 int HueTemplate::regionNums[8] = {1, 1, 2, 2, 1, 2, 2, 0};
 int HueTemplate::HueDis[7][360][360];
+
+HueTemplate::HueTemplate(){
+}
 
 void HueTemplate::HTcompute(){
     for (int id = 0; id < 7 ; id++){
@@ -23,7 +26,7 @@ void HueTemplate::HTcompute(){
     }
 }
 
-TemplateValue computeDistanceFast(int id, int totS[]) {
+TemplateValue HueTemplate::computeDistanceFast(int id, int totS[]) {
     TemplateValue result;
     result.arc = 0;
     result.id = id;
@@ -375,34 +378,34 @@ if(!meetHard)
 
 
 int main(){
-    h[widthsize][heigthtsize];
-    //s[widthsize][heigthtsize];
+    int h[widthsize][heightsize];
+    //int s[widthsize][heightsize];
     HueTemplate HT;
     HT.HTcompute();
     while(1){
-        string hue_s;
+        string hue_s, sat_s;
         cin >> hue_s;
         cin >> sat_s;
         TemplateValue TV;
         int totS[360];
-        int outHue[360]
+        int outHue[360];
         for( int i = 0 ; i < 360; i++){
             totS[i] = 0;
             outHue[i] = 0;
         }
         for(int i = 0; i < widthsize; i++){
-            for(int j = 0; j < heigthtsize; j++){
-                h[i][j] = (int)s[ i * heigthtsize + j];
+            for(int j = 0; j < heightsize; j++){
+                h[i][j] = (int)sat_s[ i * heightsize + j];
             }
         }
         /*for(int i = 0; i < widthsize; i++){
-            for(int j = 0; j < heigthtsize; j++){
+            for(int j = 0; j < heightsize; j++){
                 cin >> s[i][j];
             }
         }*/
         for(int i = 0; i < widthsize; i++)
-            for(int j = 0; j < heigthtsize; j++)
-                totS[h[i][j]] += (int)sat_s[ i * heigthtsize + j];
+            for(int j = 0; j < heightsize; j++)
+                totS[h[i][j]] += (int)sat_s[ i * heightsize + j];
 
         TV = HT.computeDistanceFast(0, totS);
         for (int id = 1; id < 7; id++){
@@ -414,8 +417,10 @@ int main(){
         int arc = TV.arc;
         for(int i = 0; i <360; i++)
             outHue[i] = HT.targetHue(arc ,i ,id);
-        for(int i = 0; i < 10000; i++){
+        for(int i = 0; i < widthsize; i++){
+            for(int j = 0; j < heightsize; j++){
             cout << outHue[h[i][j]] << " ";
+            }
         }
     }
 

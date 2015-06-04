@@ -1,7 +1,7 @@
 #ifndef TEMPLATE_H
 #define TEMPLATE_H
-#define widthsize 100
-#define heigthtsize 100
+#define widthsize 180
+#define heightsize 320
 //#include <QString>
 //#include <QImage>
 //#include <QObject>
@@ -30,12 +30,12 @@ public:
     HueTemplate();
     //TemplateValue computeDistance(QImage & image, int id);
     TemplateValue computeDistanceFast(int id, int totS[]) ;
-    long long int helpComputeDistance(int arc, int id, h[widthsize][heightsize], int s[widthsize][heightsize]);
+    long long int helpComputeDistance(int arc, int id, int h[widthsize][heightsize], int s[widthsize][heightsize]);
     long long int computeArcDistance(int arc, int hue, int id);
     int computeNearRegion(int arc, int hue, int id);
     int targetHue(int arc, int hue, int id);
     //int targetHue(int arc, int hue, int id, int border);
-    /float counterOrcouterWise(int hue, int center);
+    float counterOrcouterWise(int hue, int center);
     int nearestDistance(int hue1, int hue2);
     int distance(int hue1, int hue2, int direction);
     //long long int * computeArcDistanceLabel(int arc, int hue, int id);
