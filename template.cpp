@@ -382,10 +382,26 @@ int main(){
     //int s[widthsize][heightsize];
     HueTemplate HT;
     HT.HTcompute();
-    while(1){
-        string hue_s, sat_s;
-        cin >> hue_s;
-        cin >> sat_s;
+    const int buffsize = 720/4 * 1280/4 * 3;
+    char buff[buffsize];
+	int temp;
+	FILE *fin = freopen(NULL, "rb", stdin);
+	FILE *fout = freopen(NULL, "wb", stdout);
+	while(fread(buff, buffsize, 1, fin)){
+
+		/* this part is only for testing: shift H by 180 degree */
+		//for (int i = 0; i < buffsize/3 ; i++){
+		//	temp = ((int)(buff[i*2+1])*256 + buff[i*2] + 180) % 360;
+		//	buff[i*2] = temp % 256;
+		//	buff[i*2+1] = temp / 256;
+		//}
+		/* this part is only for testing: shift H by 180 degree */
+
+		//fwrite(buff, buffsize/3*2, 1, fout);
+		//fflush(fout);
+        //string hue_s, sat_s;
+        //cin >> hue_s;
+        //cin >> sat_s;
         TemplateValue TV;
         int totS[360];
         int outHue[360];
@@ -395,7 +411,7 @@ int main(){
         }
         for(int i = 0; i < widthsize; i++){
             for(int j = 0; j < heightsize; j++){
-                h[i][j] = (int)sat_s[ i * heightsize + j];
+                h[i][j] = (int)(buff[(i * heightsize + j) * 2 + 1])*256 + buff[(i * heightsize + j) * 2]; //(int)sat_s[ i * heightsize + j];
             }
         }
         /*for(int i = 0; i < widthsize; i++){
@@ -405,7 +421,7 @@ int main(){
         }*/
         for(int i = 0; i < widthsize; i++)
             for(int j = 0; j < heightsize; j++)
-                totS[h[i][j]] += (int)sat_s[ i * heightsize + j];
+                totS[h[i][j]] += (int)buff[ (i * heightsize + j) + 180 * 320 * 2];
 
         TV = HT.computeDistanceFast(0, totS);
         for (int id = 1; id < 7; id++){
@@ -419,9 +435,12 @@ int main(){
             outHue[i] = HT.targetHue(arc ,i ,id);
         for(int i = 0; i < widthsize; i++){
             for(int j = 0; j < heightsize; j++){
-            cout << outHue[h[i][j]] << " ";
+                buff[(i * heightsize + j)*2] = outHue[h[i][j]] % 256;
+                buff[(i * heightsize + j)*2 + 1] = outHue[h[i][j]] / 256;
             }
         }
+		fwrite(buff, buffsize/3*2, 1, fout);
+		fflush(fout);
     }
 
 }
