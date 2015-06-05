@@ -41,15 +41,18 @@ while(True):
     frame_rgb = frame_rgb_original[::4, ::4, :]
 
     # send
-    data_send, frame_hsv_float = to_HS_data(frame_rgb)
+    data_send, frame_hsv_float = to_HS_data(frame_rgb.copy())
     p.stdin.write(data_send)
 
     # receive
     data_recv = p.stdout.read(57600*2)
-    frame_rgb = from_H_data(frame_hsv_float, data_recv)
+    frame_rgb_new = from_H_data(frame_hsv_float, data_recv)
+
+    # combine old and new
+    frame_rgb_new = np.concatenate((frame_rgb, frame_rgb_new), axis = 0)
 
     # show
-    cv2.imshow('frame',frame_rgb)
+    cv2.imshow('frame',frame_rgb_new)
 
     # print frame rate
     count += 1

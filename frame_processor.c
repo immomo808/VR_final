@@ -13,7 +13,7 @@ int main(){
 
 		/* this part is only for testing: shift H by 180 degree */
 		for (int i = 0; i < buffsize/3 ; i++){
-			temp = ((int)(buff[i*2+1])*256 + buff[i*2] ) % 360;
+			temp = ((int)(buff[i*2+1])*256 + buff[i*2] + 180) % 360;
 			buff[i*2] = temp % 256;
 			buff[i*2+1] = temp / 256;
 		}
