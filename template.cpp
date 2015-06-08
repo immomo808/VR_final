@@ -379,7 +379,7 @@ if(!meetHard)
 
 int main(){
     int h[widthsize][heightsize];
-    cout << widthsize*heightsize*3 << endl;
+    //cout << widthsize*heightsize*3 << endl;
     //int s[widthsize][heightsize];
     HueTemplate HT;
     HT.HTcompute();
