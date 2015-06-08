@@ -382,7 +382,7 @@ int main(){
     //int s[widthsize][heightsize];
     HueTemplate HT;
     HT.HTcompute();
-    const int buffsize = 720/4 * 1280/4 * 3;
+    const int buffsize = widthsize * heightsize * 3;
     char buff[buffsize];
 	int temp;
 	FILE *fin = freopen(NULL, "rb", stdin);

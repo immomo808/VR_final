@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 
-const int buffsize = 720/4 * 1280/4 * 3;
+const int buffsize = 427 * 240 * 3;
 char buff[buffsize];
 
 int main(){
