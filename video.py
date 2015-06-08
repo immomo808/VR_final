@@ -58,12 +58,13 @@ while(True):
     assert len(data_recv) == height*width*2 + 8
     frame_rgb_new = from_H_data(frame_hsv_float, data_recv[:height*width*2])
 
-    # template id, arc
-    print '(template ID, arc) = ',
-    print struct.unpack('<ll', data_recv[-8:])
-
     # combine old and new
     frame_rgb_new = np.concatenate((frame_rgb, frame_rgb_new), axis = 0)
+
+    # template id, arc
+    import binascii
+    print '(template ID, arc) = ',
+    print struct.unpack('<ll', data_recv[-8:])
 
     # show
     cv2.imshow('frame',frame_rgb_new)
