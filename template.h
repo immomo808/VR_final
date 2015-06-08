@@ -1,7 +1,7 @@
 #ifndef TEMPLATE_H
 #define TEMPLATE_H
-#define widthsize 640
-#define heightsize 360
+#define widthsize 1280/2
+#define heightsize 720/2
 //#include <QString>
 //#include <QImage>
 //#include <QObject>

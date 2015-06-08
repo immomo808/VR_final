@@ -379,6 +379,7 @@ if(!meetHard)
 
 int main(){
     int h[widthsize][heightsize];
+    cout << widthsize*heightsize*3 << endl;
     //int s[widthsize][heightsize];
     HueTemplate HT;
     HT.HTcompute();
@@ -440,6 +441,8 @@ int main(){
             }
         }
 		fwrite(buff, buffsize/3*2, 1, fout);
+		fwrite(id, sizeof(int), 1, fout);
+		fwrite(arc, sizeof(int), 1, fout);
 		fflush(fout);
     }
 
