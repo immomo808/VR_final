@@ -57,7 +57,7 @@ while(True):
     frame_rgb_new = from_H_data(frame_hsv_float, data_recv)
 
     # combine old and new
-    #frame_rgb_new = np.concatenate((frame_rgb, frame_rgb_new), axis = 0)
+    frame_rgb_new = np.concatenate((frame_rgb, frame_rgb_new), axis = 0)
 
     # show
     cv2.imshow('frame',frame_rgb_new)
