@@ -441,8 +441,8 @@ int main(){
             }
         }
 		fwrite(buff, buffsize/3*2, 1, fout);
-		fwrite(id, sizeof(int), 1, fout);
-		fwrite(arc, sizeof(int), 1, fout);
+		fwrite(&id, sizeof(int), 1, fout);
+		fwrite(&arc, sizeof(int), 1, fout);
 		fflush(fout);
     }
 
