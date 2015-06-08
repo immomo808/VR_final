@@ -4,6 +4,7 @@
 import numpy as np
 import cv2
 import time
+import struct
 
 # constant
 width = 640 #1280/3
@@ -53,8 +54,13 @@ while(True):
     p.stdin.write(data_send)
 
     # receive
-    data_recv = p.stdout.read(height*width*2)
-    frame_rgb_new = from_H_data(frame_hsv_float, data_recv)
+    data_recv = p.stdout.read(height*width*2 + 8)
+    assert len(data_recv) == height*width*2 + 8
+    frame_rgb_new = from_H_data(frame_hsv_float, data_recv[:height*width*2])
+
+    # template id, arc
+    print '(template ID, arc) = ',
+    print struct.unpack('<ll', data_recv[-8:])
 
     # combine old and new
     frame_rgb_new = np.concatenate((frame_rgb, frame_rgb_new), axis = 0)
@@ -65,6 +71,7 @@ while(True):
     # print frame rate
     count += 1
     print "%.1f fps" % (float(count) / (time.time() - dt))
+    print ''
 
     # intterupt -> end
     if cv2.waitKey(1) & 0xFF == ord('q'):
